@@ -6,7 +6,21 @@ You need a Brandlive Google account. You sign in with Google once per profile.
 
 ## Mac
 
-You need [Homebrew](https://brew.sh). In Terminal:
+You need [Homebrew](https://brew.sh), the Mac package manager. In Terminal:
+
+0. Check whether you already have Homebrew.
+
+   ```
+   brew --version
+   ```
+
+   If it prints a version, skip to step 1. If you get `command not found`, install it with Homebrew's official command (from [brew.sh](https://brew.sh); read it there first if you like):
+
+   ```
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+   It may ask for your Mac password, and it installs Apple's command line tools if you don't have them, which can take a few minutes. When it finishes it prints a **Next steps** section. Run the lines it shows (on Apple Silicon Macs they add Homebrew to your PATH). Then close and reopen Terminal and check `brew --version` again.
 
 1. Download the script and check it.
 
