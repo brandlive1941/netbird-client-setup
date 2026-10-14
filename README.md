@@ -48,6 +48,7 @@ You need [Homebrew](https://brew.sh), the Mac package manager. In Terminal:
 
    ```
    netbird profile select dev-qa
+   netbird up
    netbird networks list
    ```
 
@@ -83,6 +84,7 @@ Run PowerShell as Administrator:
 
    ```
    netbird profile select dev-qa
+   netbird up
    netbird networks list
    ```
 
@@ -92,9 +94,11 @@ You are connected to one environment at a time. Each environment is its own prof
 
 ```
 netbird profile select staging
-netbird profile select dev-qa
+netbird up
 netbird status
 ```
+
+Selecting a profile does not always connect it. If `netbird status` does not say Connected, run `netbird up` and finish the Google sign-in if your browser opens.
 
 Disconnect any other VPN client first. Test connectivity against a real service address. The routing peer's own IP will not answer.
 
