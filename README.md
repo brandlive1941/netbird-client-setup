@@ -21,13 +21,15 @@ You will be connected to one environment. If you need more than one, devops will
 
 The Mac installer is signed by NetBird GmbH and notarized by Apple. The Windows installer was not inspected. Do not use the app until step 6 is done; it connects but shows nothing.
 
-## Mac
+## Advanced install
 
-No Homebrew is needed. The script downloads NetBird's installer package, checks that it is signed by NetBird GmbH and notarized by Apple, and installs it. It asks for your Mac password. Prefer to click through? Download the installer from https://pkgs.netbird.io/macos/universal, open it, and follow the prompts, then continue at step 2.
+### Mac
+
+The script downloads NetBird's installer package, checks that it is signed by NetBird GmbH and notarized by Apple, and installs it. It asks for your Mac password. Prefer to click through? Download the installer from https://pkgs.netbird.io/macos/universal, open it, and follow the prompts, then continue at step 2.
 
 In Terminal:
 
-1. Download the script and check it.
+1. Download the script and validate it.
 
    ```
    cd ~/Downloads
@@ -61,7 +63,7 @@ In Terminal:
 
    `netbird networks list` should show the environment's network. Then try something you really use there, such as the database.
 
-## Windows
+### Windows
 
 Run PowerShell as Administrator:
 
