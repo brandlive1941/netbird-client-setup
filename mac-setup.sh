@@ -7,8 +7,17 @@ URL="https://netbird.brandlive.cloud"
 NAME="${1:?usage: $0 <yourname>}"
 ENVS=("dev-qa" "staging") # add "prod" only if you have been given prod access
 
-command -v brew >/dev/null || { echo "Install Homebrew first: https://brew.sh"; exit 1; }
-brew list --cask netbird-ui >/dev/null 2>&1 || brew install --cask netbirdio/tap/netbird-ui
+if ! command -v netbird >/dev/null; then
+  tmp="$(mktemp -d)"
+  curl -fsSL -o "$tmp/netbird.pkg" https://pkgs.netbird.io/macos/universal
+  # Install only a package signed by NetBird GmbH (Apple team TA739QLA7A) and notarized by Apple.
+  sig="$(pkgutil --check-signature "$tmp/netbird.pkg")"
+  if ! { grep -q "TA739QLA7A" <<<"$sig" && grep -q "Notarization: trusted" <<<"$sig"; }; then
+    echo "NetBird package signature check failed; not installing."; exit 1
+  fi
+  sudo installer -pkg "$tmp/netbird.pkg" -target /
+  rm -rf "$tmp"
+fi
 
 for e in "${ENVS[@]}"; do
   existing="$(netbird profile list)"

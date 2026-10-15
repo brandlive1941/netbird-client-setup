@@ -6,28 +6,16 @@ You need a Brandlive Google account. You sign in with Google once per profile.
 
 ## Mac
 
-You need [Homebrew](https://brew.sh), the Mac package manager. In Terminal:
+No Homebrew is needed. The script downloads NetBird's installer package, checks that it is signed by NetBird GmbH and notarized by Apple, and installs it. It asks for your Mac password. Prefer to click through? Download the installer from https://pkgs.netbird.io/macos/universal, open it, and follow the prompts, then continue at step 2.
 
-0. Check whether you already have Homebrew.
-
-   ```
-   brew --version
-   ```
-
-   If it prints a version, skip to step 1. If you get `command not found`, install it with Homebrew's official command (from [brew.sh](https://brew.sh); read it there first if you like):
-
-   ```
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-
-   It may ask for your Mac password, and it installs Apple's command line tools if you don't have them, which can take a few minutes. When it finishes it prints a **Next steps** section. Run the lines it shows (on Apple Silicon Macs they add Homebrew to your PATH). Then close and reopen Terminal and check `brew --version` again.
+In Terminal:
 
 1. Download the script and check it.
 
    ```
    cd ~/Downloads
-   curl -fsSLO https://github.com/brandlive1941/netbird-client-setup/releases/download/v0.1.0/mac-setup.sh
-   curl -fsSLO https://github.com/brandlive1941/netbird-client-setup/releases/download/v0.1.0/SHA256SUMS
+   curl -fsSLO https://github.com/brandlive1941/netbird-client-setup/releases/download/v0.1.1/mac-setup.sh
+   curl -fsSLO https://github.com/brandlive1941/netbird-client-setup/releases/download/v0.1.1/SHA256SUMS
    grep mac-setup.sh SHA256SUMS | shasum -a 256 -c
    ```
 
@@ -62,8 +50,8 @@ Run PowerShell as Administrator:
 
    ```
    cd $env:USERPROFILE\Downloads
-   Invoke-WebRequest https://github.com/brandlive1941/netbird-client-setup/releases/download/v0.1.0/windows-setup.ps1 -OutFile windows-setup.ps1
-   Invoke-WebRequest https://github.com/brandlive1941/netbird-client-setup/releases/download/v0.1.0/SHA256SUMS -OutFile SHA256SUMS
+   Invoke-WebRequest https://github.com/brandlive1941/netbird-client-setup/releases/download/v0.1.1/windows-setup.ps1 -OutFile windows-setup.ps1
+   Invoke-WebRequest https://github.com/brandlive1941/netbird-client-setup/releases/download/v0.1.1/SHA256SUMS -OutFile SHA256SUMS
    (Get-FileHash windows-setup.ps1 -Algorithm SHA256).Hash
    Select-String windows-setup.ps1 SHA256SUMS
    ```
