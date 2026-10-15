@@ -2,7 +2,24 @@
 
 Sets up the NetBird VPN client with one profile per environment, so your laptop is connected to one environment at a time. Server: `https://netbird.brandlive.cloud`.
 
-You need a Brandlive Google account. You sign in with Google once per profile.
+You need a Brandlive Google account. You sign in with Google once per profile. Prefer clicking to typing? See [Simple install](#simple-install-no-terminal).
+
+## Simple install (no Terminal)
+
+If you would rather not use Terminal or PowerShell, install the app by clicking:
+
+1. Download the installer:
+   - Windows: https://pkgs.netbird.io/windows/x64
+   - Mac (any Mac): https://pkgs.netbird.io/macos/universal
+2. Double-click the downloaded file and click through the prompts. It may ask for your computer password.
+3. Open **NetBird** from the Start menu (Windows) or Applications (Mac).
+4. When it asks which server to use, choose the option for your own (self-hosted) server and enter `https://netbird.brandlive.cloud`.
+5. Click **Connect** and sign in with your Brandlive Google account.
+6. Notify devops that you are connected. They have to switch your access on from their side before anything works.
+
+You will be connected to one environment. If you need more than one, devops will tell you what to add.
+
+The Mac installer is signed by NetBird GmbH and notarized by Apple. The Windows installer was not inspected. Do not use the app until step 6 is done; it connects but shows nothing.
 
 ## Mac
 
