@@ -97,6 +97,30 @@ Disconnect any other VPN client first. Test connectivity against a real service 
 - `netbird networks list` is empty: your admin may not have added your access yet. If they have, run `netbird down` and `netbird up` on that profile.
 - Each profile appears as its own device named `<yourname>-<environment>`.
 
+## Alternative: install NetBird with Homebrew (Mac)
+
+You do not need this. The Mac steps above install NetBird without Homebrew. Use this only if you prefer Homebrew-managed software.
+
+1. Check for Homebrew with `brew --version`. If you get `command not found`, install it with Homebrew's official command (from [brew.sh](https://brew.sh); read it there first if you like):
+
+   ```
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+   It may ask for your Mac password, and it installs Apple's command line tools if you don't have them, which can take a few minutes. When it finishes it prints a **Next steps** section. Run the lines it shows (on Apple Silicon Macs they add Homebrew to your PATH), then close and reopen Terminal.
+
+2. Trust NetBird's tap, then install the app. Current Homebrew refuses to load a third-party tap until you trust it:
+
+   ```
+   brew tap netbirdio/tap
+   brew trust netbirdio/tap
+   brew install --cask netbirdio/tap/netbird-ui
+   ```
+
+3. Download and run `mac-setup.sh` as in the Mac steps above. It skips the install when `netbird` is already present.
+
+If step 2 fails with `Refusing to load formula ... from untrusted tap`, you skipped `brew trust`. These Homebrew steps have not been tested end to end.
+
 ## Status
 
 Both scripts are untested end to end. If you are one of the first to run one, tell your admin what happened.
