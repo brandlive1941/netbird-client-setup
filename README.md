@@ -2,30 +2,25 @@
 
 Sets up the NetBird VPN client with one profile per environment, so your laptop is connected to one environment at a time. Server: `https://netbird.brandlive.cloud`.
 
-You need a Brandlive Google account. You sign in with Google once per profile. Prefer clicking to typing? See [Simple install](#simple-install-no-terminal).
+You need a Brandlive Google account. You sign in with Google once per profile.
 
-## Simple install (no Terminal)
+**Installing the NetBird app is not enough.** The app alone gives you one unnamed connection and devops cannot give it access. The setup script in step 2 creates the profiles. Everyone runs it.
 
-If you would rather not use Terminal or PowerShell, install the app by clicking:
+1. [Install the app](#1-install-the-app) (the Mac script does this for you)
+2. [Run the setup script](#2-run-the-setup-script) (creates the profiles)
+3. [Wait, then test](#3-wait-then-test)
 
-1. Download the installer:
-   - Windows: https://pkgs.netbird.io/windows/x64
-   - Mac (any Mac): https://pkgs.netbird.io/macos/universal
-2. Double-click the downloaded file and click through the prompts. It may ask for your computer password.
-3. Open **NetBird** from the Start menu (Windows) or Applications (Mac).
-4. When it asks which server to use, choose the option for your own (self-hosted) server and enter `https://netbird.brandlive.cloud`.
-5. Click **Connect** and sign in with your Brandlive Google account.
-6. Notify devops that you are connected. They have to switch your access on from their side before anything works.
+## 1. Install the app
 
-You will be connected to one environment. If you need more than one, devops will tell you what to add.
+- **Mac, Terminal:** skip this step. The script in step 2 installs the app.
+- **Mac, clicking:** download https://pkgs.netbird.io/macos/universal, open it and click through the prompts. The installer is signed by NetBird GmbH and notarized by Apple.
+- **Windows:** download https://pkgs.netbird.io/windows/x64, double-click it and click through the prompts. Skip this if you would rather let the script do it.
 
-The Mac installer is signed by NetBird GmbH and notarized by Apple. The Windows installer was not inspected. Do not use the app until step 6 is done; it connects but shows nothing.
+Do not sign in or connect in the app. If you already did, that is fine; step 2 still applies.
 
-## Advanced install
+## 2. Run the setup script
 
 ### Mac
-
-The script downloads NetBird's installer package, checks that it is signed by NetBird GmbH and notarized by Apple, and installs it. It asks for your Mac password. Prefer to click through? Download the installer from https://pkgs.netbird.io/macos/universal, open it, and follow the prompts, then continue at step 2.
 
 In Terminal:
 
@@ -47,20 +42,7 @@ In Terminal:
    ./mac-setup.sh yourname
    ```
 
-   Your browser opens once per environment so you can sign in with Google.
-
-3. Wait about five minutes. Your devices are switched on automatically from your Identity Center groups, so there is nothing to run.
-   If `netbird networks list` is still empty after ten minutes, notify devops.
-
-4. Test it, once your access is on.
-
-   ```
-   netbird profile select dev-qa
-   netbird up
-   netbird networks list
-   ```
-
-   `netbird networks list` should show the environment's network. Then try something you really use there, such as the database.
+   It asks for your Mac password if the app is not installed. Your browser opens once per environment so you can sign in with Google.
 
 ### Windows
 
@@ -84,17 +66,19 @@ Run PowerShell as Administrator:
    powershell -ExecutionPolicy Bypass -File .\windows-setup.ps1
    ```
 
-   It asks for your first name, installs the client and opens your browser once per environment to sign in with Google.
+   It asks for your first name, installs the client if needed and opens your browser once per environment to sign in with Google.
 
-3. Wait about five minutes, as in the Mac steps. Your devices are switched on automatically.
+## 3. Wait, then test
 
-4. Test it, once your access is on. Open a new PowerShell window:
+Wait about five minutes. Your devices are switched on automatically from your Identity Center groups, so there is nothing to run. If `netbird networks list` is still empty after ten minutes, notify devops.
 
-   ```
-   netbird profile select dev-qa
-   netbird up
-   netbird networks list
-   ```
+```
+netbird profile select dev-qa
+netbird up
+netbird networks list
+```
+
+On Windows, open a new PowerShell window first. `netbird networks list` should show the environment's network. Then try something you really use there, such as the database.
 
 ## Switching environments
 
@@ -114,12 +98,13 @@ Disconnect any other VPN client first. Test connectivity against a real service 
 
 - Run `netbird status -d` and send the output to your admin.
 - `netbird: command not found` on Mac: open the NetBird app once, then run the script again.
-- `netbird networks list` is empty: wait up to ten minutes after you sign in, then run `netbird down` and `netbird up` on that profile. Still empty? Make sure devops has put you in the right group, and notify devops.
-- Each profile appears as its own device named `<yourname>-<environment>`.
+- `netbird profile list` shows only `default`: you installed the app but skipped step 2. Run the script.
+- `netbird networks list` is empty: wait up to ten minutes after you sign in, then run `netbird down` and `netbird up` on that profile. Still empty? Notify devops.
+- Each profile appears as its own device named `<yourname>-<environment>`. A device with any other name is not switched on automatically.
 
 ## Alternative: install NetBird with Homebrew (Mac)
 
-You do not need this. The Mac steps above install NetBird without Homebrew. Use this only if you prefer Homebrew-managed software.
+You do not need this. The script installs NetBird without Homebrew. Use this only if you prefer Homebrew-managed software.
 
 1. Check for Homebrew with `brew --version`. If you get `command not found`, install it with Homebrew's official command (from [brew.sh](https://brew.sh); read it there first if you like):
 
@@ -137,10 +122,10 @@ You do not need this. The Mac steps above install NetBird without Homebrew. Use 
    brew install --cask netbirdio/tap/netbird-ui
    ```
 
-3. Download and run `mac-setup.sh` as in the Mac steps above. It skips the install when `netbird` is already present.
+3. Run `mac-setup.sh` as in step 2. It skips the install when `netbird` is already present.
 
 If step 2 fails with `Refusing to load formula ... from untrusted tap`, you skipped `brew trust`. These Homebrew steps have not been tested end to end.
 
 ## Status
 
-Both scripts are untested end to end. If you are one of the first to run one, tell your admin what happened.
+Both scripts are untested end to end on Windows; the Mac script has been used by several people. If you are one of the first to run the Windows script, tell your admin what happened.
