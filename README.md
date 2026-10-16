@@ -49,11 +49,10 @@ In Terminal:
 
    Your browser opens once per environment so you can sign in with Google.
 
-3. Enable your access. Nothing is reachable until your devices are switched on from the server side. In GitHub, open the
-   `netbird-access` repository, go to **Actions**, choose **Enable-Netbird-Clients**, and click **Run workflow** (the defaults are right).
-   It takes about half a minute and checks your Identity Center groups. Can't open that repository? Notify devops and they will run it.
+3. Wait about five minutes. Your devices are switched on automatically from your Identity Center groups, so there is nothing to run.
+   If `netbird networks list` is still empty after ten minutes, notify devops.
 
-4. Test it, once Enable-Netbird-Clients has finished.
+4. Test it, once your access is on.
 
    ```
    netbird profile select dev-qa
@@ -87,9 +86,9 @@ Run PowerShell as Administrator:
 
    It asks for your first name, installs the client and opens your browser once per environment to sign in with Google.
 
-3. Enable your access by running **Enable-Netbird-Clients**, as in the Mac steps.
+3. Wait about five minutes, as in the Mac steps. Your devices are switched on automatically.
 
-4. Test it, once Enable-Netbird-Clients has finished. Open a new PowerShell window:
+4. Test it, once your access is on. Open a new PowerShell window:
 
    ```
    netbird profile select dev-qa
@@ -115,7 +114,7 @@ Disconnect any other VPN client first. Test connectivity against a real service 
 
 - Run `netbird status -d` and send the output to your admin.
 - `netbird: command not found` on Mac: open the NetBird app once, then run the script again.
-- `netbird networks list` is empty: Enable-Netbird-Clients may not have run since you signed in. Run it (see step 3), and then run `netbird down` and `netbird up` on that profile.
+- `netbird networks list` is empty: wait up to ten minutes after you sign in, then run `netbird down` and `netbird up` on that profile. Still empty? Make sure devops has put you in the right group, and notify devops.
 - Each profile appears as its own device named `<yourname>-<environment>`.
 
 ## Alternative: install NetBird with Homebrew (Mac)
