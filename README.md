@@ -94,6 +94,24 @@ Selecting a profile does not always connect it. If `netbird status` does not say
 
 Disconnect any other VPN client first. Test connectivity against a real service address. The routing peer's own IP will not answer.
 
+## Other profiles: prod, mediaplatform, EU staging
+
+The script creates `dev-qa` and `staging` only. Add any other profile by hand, and only if devops has given you that access. This is also how you add `prod`.
+
+| Profile | Device name ends with | Access group (Identity Center) |
+|---|---|---|
+| prod | `-prod` | developers-prod, devops |
+| mediaplatform | `-mediaplatform` or `-mp` | mediaplatform, devops |
+| eu-staging | `-eu-staging` | developers, devops |
+
+```
+netbird profile add prod
+netbird profile select prod
+netbird up --management-url https://netbird.brandlive.cloud --hostname <yourname>-prod
+```
+
+Replace `prod` and the suffix for the other profiles. **Always pass `--management-url`.** Without it a new profile signs in to NetBird Cloud and fails with "user pending approval cannot add peers". The name must end with the suffix, or the device is not switched on automatically.
+
 ## If something fails
 
 - Run `netbird status -d` and send the output to your admin.
