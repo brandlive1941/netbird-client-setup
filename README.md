@@ -4,6 +4,8 @@ Sets up the NetBird VPN client with one profile per environment, so your laptop 
 
 You need a Brandlive Google account. You sign in with Google once per profile.
 
+**You also need an AWS account (IAM Identity Center user).** Signing in with Google proves who you are; your access comes from your AWS Identity Center group: `developers` or `devops` for dev, qa and staging, `developers-prod` or `devops` for prod, `mediaplatform` for MediaPlatform. With no AWS account, or none of those groups, the VPN connects but `netbird networks list` stays empty and nothing is reachable. Ask devops to create your account and add you to the right group before you start.
+
 **Installing the NetBird app is not enough.** The app alone gives you one unnamed connection and devops cannot give it access. The setup script in step 2 creates the profiles. Everyone runs it.
 
 1. [Install the app](#1-install-the-app) (the Mac script does this for you)
